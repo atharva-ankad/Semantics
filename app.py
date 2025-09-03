@@ -1,6 +1,7 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for, session
 
 app = Flask(__name__)
+app.secret_key = "supersecretkey"
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -14,6 +15,16 @@ def index():
             {"text": "haahahaha","score":0},
             {"text": "Its working yayyyy","score":1}
         ]
+
+        # Save in session (temporary storage)
+        session["query"] = query
+        session["results"] = results
+
+        return redirect(url_for("index"))
+
+    # GET request (after redirect)
+    query = session.pop("query", None)
+    results = session.pop("results", None)
 
     return render_template("index.html", query=query, results=results)
 
