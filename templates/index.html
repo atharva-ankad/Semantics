@@ -2,23 +2,35 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Semantic Search</title>
+    <title>Semantic Search - Solar System</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Semantic Search</h1>
-    <form method="POST">
-        <input type="text" name="query" placeholder="You know what to do :)" required>
-        <button type="submit">Search</button>
-    </form>
+    <div class="container">
+        <h1>Semantic Search (Solar System)</h1>
+        <input type="text" id="queryInput" placeholder="Enter your question...">
+        <button onclick="searchQuery()">Search</button>
 
-    {% if query %}
-        <h2>Results for "{{ query }}":</h2>
-        <ul>
-            {% for item in results %}
-                <li>{{ item.text }} (score: {{ '%.2f'|format(item.score) }})</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+        <div id="results"></div>
+    </div>
+
+    <script>
+        async function searchQuery() {
+            const query = document.getElementById("queryInput").value;
+            const response = await fetch(`/search?query=${encodeURIComponent(query)}`);
+            const data = await response.json();
+
+            let resultsDiv = document.getElementById("results");
+            resultsDiv.innerHTML = "<h2>Top Results:</h2>";
+
+            let list = "<ul>";
+            data.results.forEach(r => {
+                list += `<li>${r.sentence} (score: ${r.score.toFixed(3)})</li>`;
+            });
+            list += "</ul>";
+
+            resultsDiv.innerHTML += list;
+        }
+    </script>
 </body>
 </html>
