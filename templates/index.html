@@ -17,18 +17,22 @@
     <script>
         async function searchQuery() {
             const query = document.getElementById("queryInput").value;
-            const response = await fetch(`/search?query=${encodeURIComponent(query)}`);
+            const response = await fetch("/search", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({query})
+            });
+
             const data = await response.json();
 
             let resultsDiv = document.getElementById("results");
             resultsDiv.innerHTML = "<h2>Top Results:</h2>";
 
             let list = "<ul>";
-            data.results.forEach(r => {
+            data.forEach(r => {
                 list += `<li>${r.sentence} (score: ${r.score.toFixed(3)})</li>`;
             });
             list += "</ul>";
-
             resultsDiv.innerHTML += list;
         }
     </script>
