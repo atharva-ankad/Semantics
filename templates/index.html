@@ -7,34 +7,48 @@
 </head>
 <body>
     <div class="container">
-        <h1>Search Engine (Solar System)</h1>
+        <h1>Solarizer</h1>
         <input type="text" id="queryInput" placeholder="Enter your question...">
         <button onclick="searchQuery()">Search</button>
 
-        <div id="results"></div>
+    <div id="results">
+
+        
+    </div>
     </div>
 
+
+
+ 
     <script>
-        async function searchQuery() {
-            const query = document.getElementById("queryInput").value;
-            const response = await fetch("/search", {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({query})
-            });
+    async function searchQuery() {
+        const query = document.getElementById("queryInput").value;
+        const response = await fetch("/search", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({query})
+        });
 
-            const data = await response.json();
+        const data = await response.json();
 
-            let resultsDiv = document.getElementById("results");
-            resultsDiv.innerHTML = "<h2>Top Results:</h2>";
+        let resultsDiv = document.getElementById("results");
+        resultsDiv.innerHTML = "<h2>Top Results:</h2>";
 
-            let list = "<ul>";
-            data.forEach(r => {
-                list += `<li>${r.sentence} (similarity score: ${r.score.toFixed(3)})</li>`;
-            });
-            list += "</ul>";
-            resultsDiv.innerHTML += list;
-        }
-    </script>
+       
+        let table = "<table><thead><tr><th>Data Fetched</th><th>Similarity Score</th></tr></thead><tbody>";
+
+        
+        data.forEach(r => {
+            table += `<tr><td>${r.sentence}</td><td>${r.score.toFixed(3)}</td></tr>`;
+        });
+        
+        table += "</tbody></table>";
+        resultsDiv.innerHTML += table;
+    }
+</script>
+
+
+
+   
 </body>
 </html>

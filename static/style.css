@@ -1,6 +1,6 @@
 body {
-    font-family: Arial, sans-serif;
-    background: violet;
+    font-family: 'Trebuchet MS';
+    background: beige;
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -9,13 +9,17 @@ body {
 }
 
 .container {
-    margin-top: 80px; /* between top and center */
+    margin-top: 80px; 
     text-align: center;
+    border-radius: 5px;
+
 }
 
 input[type="text"] {
     padding: 8px;
     width: 300px;
+    border-radius: 20px;
+    margin-bottom: 100px;
 }
 
 button {
@@ -24,13 +28,21 @@ button {
     color: white;
     border: none;
     cursor: pointer;
+    border-radius: 20px
 }
 
 button:hover {
-    background: #555;
+    background: #9ac4e2;
+    color: black;
+    border: 2px;
 }
 
 ul {
-    list-style-type: none;
-    padding: 0;
+    list-style-type: circle;
+    margin-top:10px;
+    text-align:left;
+}
+
+#results{
+    border: px solid black;
 }
