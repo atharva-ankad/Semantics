@@ -30,7 +30,7 @@
 
             let list = "<ul>";
             data.forEach(r => {
-                list += `<li>${r.sentence} (score: ${r.score.toFixed(3)})</li>`;
+                list += `<li>${r.sentence} (similarity score: ${r.score.toFixed(3)})</li>`;
             });
             list += "</ul>";
             resultsDiv.innerHTML += list;

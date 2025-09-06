@@ -20,4 +20,4 @@ def search(query_embedding, top_n=5):
     scores = cosine_similarity(query_embedding, embeddings)[0]
     results = list(zip(sentences, scores))
     sorted_results = sorted(results, key=lambda x: x[1], reverse=True)
-    return [{"sentence": s, "sim_score": float(sc)} for s, sc in sorted_results[:top_n]]
+    return [{"sentence": s, "score": float(sc)} for s, sc in sorted_results[:top_n]]
