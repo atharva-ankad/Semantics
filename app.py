@@ -4,8 +4,6 @@ from sentence_transformers import SentenceTransformer
 
 app = Flask(__name__)
 
-# Load small model to embed user queries
-# This is okay on Render if you choose a small model like 'all-MiniLM-L6-v2'
 model = SentenceTransformer('all-MiniLM-L6-v2')
 
 @app.route("/", methods=["GET"])

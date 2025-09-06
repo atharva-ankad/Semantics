@@ -15,9 +15,9 @@ with open(SENT_PATH, "rb") as f:
 def search(query_embedding, top_n=5):
     """
     Returns top_n sentences based on cosine similarity
-    query_embedding: 1xN numpy array
+    query_embedding: 1xN(N=384) numpy array
     """
     scores = cosine_similarity(query_embedding, embeddings)[0]
     results = list(zip(sentences, scores))
     sorted_results = sorted(results, key=lambda x: x[1], reverse=True)
-    return [{"sentence": s, "score": float(sc)} for s, sc in sorted_results[:top_n]]
+    return [{"sentence": s, "sim_score": float(sc)} for s, sc in sorted_results[:top_n]]
